@@ -49,19 +49,25 @@ SRIP/
 - Creates a **60 × 60 km uniform grid** overlay (42 cells)
 - Parses lat/lon from each image filename (`{lat}_{lon}.png`)
 - Spatial join keeps only points inside the NCR polygon
-| Before Filtering | After Filtering | Removed |
-|:----------------:|:---------------:|:-------:|
-| 9,216 | **8,015** | 1,201 |
+
+| Metric | Value |
+|--------|-------|
+| Images before filtering | 9,216 |
+| Images after filtering | **8,015** |
+| Images removed | 1,201 |
+| Grid size | 60 × 60 km |
+| Grid cells | 42 |
 ### Q2 — Label Construction
 For each filtered image, extracts a 128×128 patch from the WorldCover raster, computes the **mode** (most frequent class), and maps it:
-| ESA Code(s) | Original Class | → Simplified |
-|:-----------:|----------------|:------------:|
-| 10, 20, 30, 90, 95 | Tree / Shrub / Grass / Wetland / Mangroves | 🌿 **Vegetation** |
-| 40 | Cropland | 🌾 **Cropland** |
-| 50 | Built-up | 🏙️ **Built-up** |
-| 80 | Water | 💧 **Water** |
-| 60, 70, 100 | Bare / Snow / Moss | ⬜ **Others** |
-**Split:** Train 4,809 (60%) / Test 3,206 (40%) — stratified
+| ESA Code(s)       | Original Class                              | → Simplified    | Count |
+|-------------------|---------------------------------------------|-----------------|-------|
+| 10, 20, 30, 90, 95| Tree / Shrub / Grass / Wetland / Mangroves  | 🌿 **Vegetation** | 755   |
+| 40                | Cropland                                    | 🌾 **Cropland** | 5,474 |
+| 50                | Built-up                                    | 🏙️ **Built-up** | 1,779 |
+| 80                | Water                                       | 💧 **Water**    | 7     |
+| 60, 70, 100       | Bare / Snow / Moss                          | ⬜ **Others**   | —     |
+
+**Stratified 60/40 split** → Train: 4,809 · Test: 3,206
 ### Q3 — Model Training
 **Architecture:** ResNet18 (ImageNet pretrained)
 - Layers `conv1` → `layer3`: **frozen** 🧊
