@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI for Sustainability — SRIP 2026 | Earth Observation Pipeline</title>
+  <meta name="description" content="Land-use classification of Delhi-NCR using Sentinel-2 imagery and deep learning. SRIP 2026 research project showcasing spatial filtering, label construction, and CNN-based classification." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-icon">🛰️</span>
+        <span class="logo-text">SRIP <span class="accent">2026</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#pipeline" class="nav-link">Pipeline</a>
+        <a href="#spatial" class="nav-link">Spatial</a>
+        <a href="#labels" class="nav-link">Labels</a>
+        <a href="#model" class="nav-link">Model</a>
+        <a href="https://github.com/DYUTIMAN03/AI-for-Sustainability---SRIP-2026" target="_blank" class="nav-link nav-github">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="hero-bg">
+      <div class="grid-overlay"></div>
+      <div class="floating-orb orb-1"></div>
+      <div class="floating-orb orb-2"></div>
+      <div class="floating-orb orb-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">🌍 SRIP 2026 — IIT Gandhinagar</div>
+      <h1 class="hero-title">
+        AI for <span class="gradient-text">Sustainability</span>
+      </h1>
+      <p class="hero-subtitle">
+        Land-Use Classification of Delhi-NCR Using Sentinel-2 Satellite Imagery & Deep Learning
+      </p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-value">8,015</div>
+          <div class="stat-label">Satellite Images</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4</div>
+          <div class="stat-label">Land-Use Classes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">92.3%</div>
+          <div class="stat-label">Test Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">ResNet18</div>
+          <div class="stat-label">CNN Architecture</div>
+        </div>
+      </div>
+      <a href="#pipeline" class="hero-cta">
+        Explore the Pipeline
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Pipeline Overview -->
+  <section id="pipeline" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Methodology</span>
+        <h2 class="section-title">Three-Stage Pipeline</h2>
+        <p class="section-desc">From raw satellite imagery to intelligent land-use classification</p>
+      </div>
+      <div class="pipeline-flow">
+        <div class="pipeline-card" data-step="1">
+          <div class="pipeline-number">01</div>
+          <div class="pipeline-icon">🗺️</div>
+          <h3>Spatial Filtering</h3>
+          <p>Overlay a 60×60 km uniform grid on the Delhi-NCR shapefile and filter 9,216 Sentinel-2 image patches to retain only the 8,015 falling within the region boundary.</p>
+          <div class="pipeline-tech">GeoPandas · Shapely · EPSG:32644</div>
+        </div>
+        <div class="pipeline-connector">
+          <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h32m-8-8l8 8-8 8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        </div>
+        <div class="pipeline-card" data-step="2">
+          <div class="pipeline-number">02</div>
+          <div class="pipeline-icon">🏷️</div>
+          <h3>Label Construction</h3>
+          <p>Extract 128×128 land-cover patches from ESA WorldCover 2021 raster, assign majority-vote labels, and split into 60/40 train/test sets across 4 simplified categories.</p>
+          <div class="pipeline-tech">Rasterio · Scipy · Stratified Split</div>
+        </div>
+        <div class="pipeline-connector">
+          <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h32m-8-8l8 8-8 8" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        </div>
+        <div class="pipeline-card" data-step="3">
+          <div class="pipeline-number">03</div>
+          <div class="pipeline-icon">🧠</div>
+          <h3>CNN Training</h3>
+          <p>Fine-tune a pretrained ResNet18 on the labelled dataset with weighted cross-entropy loss, achieving 92.3% accuracy and 0.925 weighted F1-score on the test set.</p>
+          <div class="pipeline-tech">PyTorch · ResNet18 · ImageNet Weights</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q1: Spatial Filtering -->
+  <section id="spatial" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stage 1</span>
+        <h2 class="section-title">Spatial Reasoning & Data Filtering</h2>
+        <p class="section-desc">Geospatial filtering of Sentinel-2 satellite imagery over the Delhi-NCR region</p>
+      </div>
+
+      <div class="content-grid">
+        <div class="info-panel">
+          <div class="info-block">
+            <h4>Process</h4>
+            <ol class="process-list">
+              <li>Load the Delhi-NCR GeoJSON boundary (EPSG:4326)</li>
+              <li>Reproject to UTM 44N (EPSG:32644) for metric calculations</li>
+              <li>Generate a uniform 60×60 km grid overlay</li>
+              <li>Parse satellite image center coords from filenames</li>
+              <li>Spatial join to retain only images within NCR boundary</li>
+            </ol>
+          </div>
+          <div class="stats-row">
+            <div class="mini-stat">
+              <span class="mini-value">9,216</span>
+              <span class="mini-label">Total Images</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-value">8,015</span>
+              <span class="mini-label">After Filtering</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-value">1,201</span>
+              <span class="mini-label">Removed</span>
+            </div>
+          </div>
+        </div>
+        <div class="image-panel">
+          <div class="image-card">
+            <img src="/outputs/q1_grid_plot.png" alt="Delhi-NCR region with 60×60 km uniform grid overlay" loading="lazy" />
+            <div class="image-caption">Delhi-NCR boundary with 60×60 km uniform grid (UTM projection)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="full-width-image">
+        <div class="image-card">
+          <img src="/outputs/q1_filtered_points.png" alt="Satellite image centers filtered by Delhi-NCR boundary" loading="lazy" />
+          <div class="image-caption">Satellite image centers: Green (8,015 inside NCR) vs Red (1,201 outside NCR)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q2: Label Construction -->
+  <section id="labels" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stage 2</span>
+        <h2 class="section-title">Label Construction & Dataset</h2>
+        <p class="section-desc">Constructing ground-truth labels from ESA WorldCover 2021 land-cover raster</p>
+      </div>
+
+      <div class="content-grid reverse">
+        <div class="image-panel">
+          <div class="image-card">
+            <img src="/outputs/q2_class_distribution.png" alt="Land-use class distribution across overall, train, and test sets" loading="lazy" />
+            <div class="image-caption">Class distribution across Overall, Train (60%), and Test (40%) sets</div>
+          </div>
+        </div>
+        <div class="info-panel">
+          <div class="info-block">
+            <h4>ESA WorldCover → Simplified Labels</h4>
+            <table class="mapping-table">
+              <thead>
+                <tr><th>ESA Code</th><th>Original Class</th><th>Simplified</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>10, 20, 30</td><td>Tree / Shrub / Grass</td><td class="label-veg">🌿 Vegetation</td></tr>
+                <tr><td>40</td><td>Cropland</td><td class="label-crop">🌾 Cropland</td></tr>
+                <tr><td>50</td><td>Built-up</td><td class="label-built">🏙️ Built-up</td></tr>
+                <tr><td>80</td><td>Permanent Water</td><td class="label-water">💧 Water</td></tr>
+                <tr><td>60, 70, 90, 95, 100</td><td>Bare / Snow / Wetland / Mangrove / Moss</td><td class="label-other">Others (excluded)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="stats-row">
+            <div class="mini-stat">
+              <span class="mini-value">4,809</span>
+              <span class="mini-label">Train Set</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-value">3,206</span>
+              <span class="mini-label">Test Set</span>
+            </div>
+            <div class="mini-stat">
+              <span class="mini-value">128×128</span>
+              <span class="mini-label">Patch Size</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q3: CNN Training & Results -->
+  <section id="model" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Stage 3</span>
+        <h2 class="section-title">Model Training & Evaluation</h2>
+        <p class="section-desc">Fine-tuned ResNet18 for land-use classification with weighted cross-entropy loss</p>
+      </div>
+
+      <!-- Model Architecture -->
+      <div class="model-arch">
+        <div class="arch-card">
+          <div class="arch-icon">🏗️</div>
+          <h4>Architecture</h4>
+          <p>ResNet18 (ImageNet pretrained)</p>
+          <span class="arch-detail">Fine-tuned layer4 + FC</span>
+        </div>
+        <div class="arch-card">
+          <div class="arch-icon">⚙️</div>
+          <h4>Training Config</h4>
+          <p>15 epochs, batch 64</p>
+          <span class="arch-detail">LR: 1e-4, StepLR γ=0.5</span>
+        </div>
+        <div class="arch-card">
+          <div class="arch-icon">⚖️</div>
+          <h4>Loss Function</h4>
+          <p>Weighted CrossEntropy</p>
+          <span class="arch-detail">Addresses class imbalance</span>
+        </div>
+        <div class="arch-card">
+          <div class="arch-icon">🔄</div>
+          <h4>Augmentation</h4>
+          <p>Flip, Rotate, ColorJitter</p>
+          <span class="arch-detail">Training-time only</span>
+        </div>
+      </div>
+
+      <!-- Results Metrics -->
+      <div class="results-panel">
+        <h3 class="results-title">Test Set Performance</h3>
+        <div class="metrics-grid">
+          <div class="metric-card metric-accent">
+            <div class="metric-value">92.3%</div>
+            <div class="metric-label">Overall Accuracy</div>
+            <div class="metric-bar"><div class="metric-fill" style="width: 92.3%"></div></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.925</div>
+            <div class="metric-label">Weighted F1-Score</div>
+            <div class="metric-bar"><div class="metric-fill" style="width: 92.5%"></div></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">0.803</div>
+            <div class="metric-label">Macro F1-Score</div>
+            <div class="metric-bar"><div class="metric-fill" style="width: 80.3%"></div></div>
+          </div>
+        </div>
+
+        <!-- Per-class metrics -->
+        <div class="class-metrics">
+          <h4>Per-Class Performance</h4>
+          <div class="class-table">
+            <div class="class-row header">
+              <span>Class</span><span>Precision</span><span>Recall</span><span>F1</span><span>Support</span>
+            </div>
+            <div class="class-row">
+              <span class="class-name"><span class="class-dot built"></span>Built-up</span>
+              <span>0.89</span><span>0.91</span><span>0.90</span><span>711</span>
+            </div>
+            <div class="class-row">
+              <span class="class-name"><span class="class-dot crop"></span>Cropland</span>
+              <span>0.97</span><span>0.94</span><span>0.96</span><span>2,190</span>
+            </div>
+            <div class="class-row">
+              <span class="class-name"><span class="class-dot veg"></span>Vegetation</span>
+              <span>0.70</span><span>0.80</span><span>0.75</span><span>302</span>
+            </div>
+            <div class="class-row">
+              <span class="class-name"><span class="class-dot water"></span>Water</span>
+              <span>0.43</span><span>1.00</span><span>0.60</span><span>3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visualizations -->
+      <div class="viz-grid">
+        <div class="image-card">
+          <img src="/outputs/q3_training_curves.png" alt="Training loss and accuracy curves over 15 epochs" loading="lazy" />
+          <div class="image-caption">Training loss & accuracy curves (15 epochs)</div>
+        </div>
+        <div class="image-card wide">
+          <img src="/outputs/q3_confusion_matrix.png" alt="Confusion matrix showing counts and normalized performance" loading="lazy" />
+          <div class="image-caption">Confusion matrix — raw counts (left) and normalized (right)</div>
+        </div>
+      </div>
+
+      <!-- Interpretation -->
+      <div class="interpretation">
+        <h4>🔍 Key Findings</h4>
+        <div class="findings-grid">
+          <div class="finding">
+            <strong>Cropland dominance:</strong> With 68% of samples, Cropland achieves the highest F1 (0.96) due to large representation and distinct spectral signatures in Sentinel-2 imagery.
+          </div>
+          <div class="finding">
+            <strong>Built-up accuracy:</strong> 91% recall for urban areas demonstrates that the model effectively identifies man‑made infrastructure from satellite patches.
+          </div>
+          <div class="finding">
+            <strong>Class imbalance:</strong> Water (only 3 test samples) has perfect recall but low precision — weighted loss helps but more data is needed for robust Water classification.
+          </div>
+          <div class="finding">
+            <strong>Vegetation confusion:</strong> 10% of Vegetation patches are misclassified as Built-up, likely due to mixed urban-green interface pixels at the patch boundary.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <span class="logo-icon">🛰️</span>
+          <div>
+            <h4>AI for Sustainability — SRIP 2026</h4>
+            <p>Summer Research Internship Programme, IIT Gandhinagar</p>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="https://github.com/DYUTIMAN03/AI-for-Sustainability---SRIP-2026" target="_blank" class="footer-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Built with Sentinel-2 imagery · ESA WorldCover 2021 · PyTorch · ❤️</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>

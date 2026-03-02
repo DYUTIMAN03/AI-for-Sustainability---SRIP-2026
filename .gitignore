@@ -1,6 +1,10 @@
 # Data directory (too large for GitHub)
 data/
 
+# Frontend build
+node_modules/
+frontend/dist/
+
 # Python
 __pycache__/
 *.py[cod]
