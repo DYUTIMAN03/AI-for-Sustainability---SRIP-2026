@@ -1,0 +1,45 @@
+Q3: Model Training & Supervised Evaluation Results
+==================================================
+
+Model: ResNet18 (pretrained, fine-tuned layer4 + fc)
+Epochs: 15
+Batch Size: 64
+Learning Rate: 0.0001
+Device: cpu
+
+Train samples: 4809
+Test samples:  3206
+
+Accuracy: 0.9233 (92.3%)
+F1-Score (macro): 0.8025
+F1-Score (weighted): 0.9251
+
+Classification Report:
+              precision    recall  f1-score   support
+
+    Built-up       0.89      0.91      0.90       711
+    Cropland       0.97      0.94      0.96      2190
+  Vegetation       0.70      0.80      0.75       302
+       Water       0.43      1.00      0.60         3
+
+    accuracy                           0.92      3206
+   macro avg       0.75      0.92      0.80      3206
+weighted avg       0.93      0.92      0.93      3206
+
+
+Confusion Matrix:
+[[ 650   33   27    1]
+ [  48 2064   76    2]
+ [  30   28  243    1]
+ [   0    0    0    3]]
+
+Interpretation:
+- The model uses ResNet18 pretrained on ImageNet, fine-tuned on our
+  Sentinel-2 Delhi-NCR satellite imagery for land-use classification.
+- Class imbalance (Cropland dominant) is addressed via weighted loss.
+- Cropland and Built-up classes are expected to have higher accuracy
+  due to larger sample sizes and distinct spectral signatures.
+- Vegetation and Water have fewer samples, which may lead to lower
+  recall for these minority classes.
+- The confusion matrix reveals any systematic misclassifications
+  between similar land-cover types.
