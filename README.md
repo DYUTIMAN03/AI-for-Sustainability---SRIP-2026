@@ -224,6 +224,12 @@ ImageNet Pretrained ResNet18
 
 ---
 
+## 🤖 AI Assistance
+
+This project was developed with the help of **[Google Antigravity](https://antigravity.google)**, an agentic AI IDE powered by Gemini 3 Pro. It was used to assist with understanding the codebase, writing and structuring the pipeline scripts, and drafting the README documentation. All results, analysis, and technical decisions are my own.
+
+---
+
 <div align="center">
 
 **Built with** 🐍 Python · 🔥 PyTorch · 🌍 GeoPandas · 🛰️ Rasterio
